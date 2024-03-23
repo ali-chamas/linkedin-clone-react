@@ -1,0 +1,13 @@
+.text-primary {
+  color: rgb(47, 94, 211);
+}
+.bg-primary {
+  background-color: white;
+}
+.bg-secondary {
+  background-color: rgba(238, 246, 255, 0.566);
+}
+
+.text-gray {
+  color: gray;
+}

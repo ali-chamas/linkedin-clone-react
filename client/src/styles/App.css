@@ -1,0 +1,63 @@
+.logo {
+  color: rgb(47, 94, 211);
+  font-size: 50px;
+}
+.navbar {
+  padding: 3px;
+}
+
+.nav-search {
+  background-color: transparent;
+  color: gray;
+}
+
+.home-logo {
+  font-size: 48px;
+}
+.search-bar {
+  padding: 0 15px;
+  width: 30vw;
+  height: 50px;
+  border-radius: 5px;
+}
+.links-container {
+  gap: 40px;
+}
+.links-container a {
+  color: gray;
+}
+.search-bar input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  height: 100%;
+  font-size: large;
+}
+.search-bar p {
+  font-size: large;
+}
+
+.navbar img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+
+section {
+  margin-top: 20px;
+}
+
+h2 {
+  margin: 0;
+}
+
+.post-style {
+  width: 80vw;
+}
+
+@media (min-width: 1050px) {
+  .post-style {
+    width: 50vw;
+  }
+}
