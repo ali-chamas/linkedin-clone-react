@@ -30,7 +30,9 @@ const Navbar = () => {
           <MdBusinessCenter />
         </a>
 
-        <img src={user.img} alt="" />
+        <a href={`/profile/?id=${user.id}`}>
+          <img src={user.img} alt="" />
+        </a>
       </div>
     </div>
   );

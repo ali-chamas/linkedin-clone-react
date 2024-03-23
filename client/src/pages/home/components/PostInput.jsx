@@ -21,7 +21,7 @@ const PostInput = () => {
           </p>
           <p className="text-primary">Media</p>
         </div>
-        <button className="btn-style">Post</button>
+        <button className="btn-style bg-blue text-white ">Post</button>
       </div>
     </div>
   );
