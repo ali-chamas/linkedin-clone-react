@@ -16,3 +16,14 @@
 .text-white {
   color: white;
 }
+.text-black {
+  color: black;
+}
+
+.border-blue {
+  border: rgb(47, 94, 211) 1px solid;
+}
+
+.bg-danger {
+  background-color: rgb(172, 0, 0);
+}

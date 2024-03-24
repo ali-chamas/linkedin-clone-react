@@ -88,11 +88,36 @@
   outline: none;
 }
 
+.small-p {
+  padding: 5px;
+}
+
+.popup {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(4, 4, 4, 0.395);
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-child {
+  padding: 40px;
+  max-width: 500px;
+}
+
 @media (max-width: 768px) {
   .h1-size {
     font-size: 30px;
   }
   .large-font {
     font-size: 28px;
+  }
+  .popup-child {
+    padding: 40px;
+    max-width: 300px;
   }
 }

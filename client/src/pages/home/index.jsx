@@ -22,7 +22,7 @@ const Home = () => {
       </div>
       {posts.length > 0
         ? posts.map((post, i) => (
-            <div className="post-style">
+            <div key={i} className="post-style">
               <Post post={post} key={i} />
             </div>
           ))

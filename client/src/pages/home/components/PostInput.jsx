@@ -14,9 +14,9 @@ const PostInput = () => {
           className="w-full input-style "
         />
       </div>
-      <div className="flex justify-between align-center">
-        <div className="flex gap align-center media-input">
-          <p className="text-primary">
+      <div className="flex justify-between ">
+        <div className="flex gap align-center media-input ">
+          <p className="text-primary ">
             <MdPermMedia />
           </p>
           <p className="text-primary">Media</p>

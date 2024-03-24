@@ -10,6 +10,7 @@ import { UserContext } from "../context/UserContext";
 const Navbar = () => {
   const { user } = useContext(UserContext);
 
+  const path = window.location.pathname;
   return (
     <div className="flex align-center justify-evenly gap navbar bg-primary">
       <div className="flex gap align-center">
@@ -22,13 +23,26 @@ const Navbar = () => {
       </div>
 
       <div className="flex  align-center links-container">
-        <a href="/" className="large-font ">
+        <a
+          href="/"
+          className={`large-font ${path == "/" ? "text-black" : "text-gray"}`}
+        >
           <IoMdHome />
         </a>
-        <a href="/" className="large-font">
+        <a
+          href="/following"
+          className={`large-font ${
+            path == "/following" ? "text-black" : "text-gray"
+          }`}
+        >
           <HiUsers />
         </a>
-        <a href="/" className="large-font">
+        <a
+          href="/jobs"
+          className={`large-font ${
+            path == "/jobs" ? "text-black" : "text-gray"
+          }`}
+        >
           <MdBusinessCenter />
         </a>
 

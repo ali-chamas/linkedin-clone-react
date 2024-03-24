@@ -24,9 +24,7 @@
 .links-container {
   gap: 40px;
 }
-.links-container a {
-  color: gray;
-}
+
 .search-bar input {
   border: none;
   outline: none;
@@ -63,6 +61,29 @@ h2 {
   width: 60px;
   height: 60px;
   border-radius: 50%;
+}
+
+.job-card:hover {
+  cursor: pointer;
+  background-color: rgba(230, 230, 230, 0.404);
+  border-radius: 5px;
+  transition: all;
+  animation-duration: 0.3s;
+}
+
+.job-card > img {
+  width: 70px;
+  height: 60px;
+  border-radius: 5px;
+}
+.job-popup img {
+  width: 120px;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.job-popup button {
+  font-size: 16px;
 }
 
 @media (max-width: 660px) {

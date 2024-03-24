@@ -1,0 +1,13 @@
+.jobs-section > div {
+  width: 90vw;
+}
+
+.jobs-section button {
+  align-self: flex-end;
+}
+
+@media (min-width: 768px) {
+  .jobs-section > div {
+    width: 45vw;
+  }
+}
