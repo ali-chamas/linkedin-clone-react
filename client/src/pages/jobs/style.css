@@ -6,7 +6,7 @@
   align-self: flex-end;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1050px) {
   .jobs-section > div {
     width: 45vw;
   }

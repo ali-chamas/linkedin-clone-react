@@ -1,0 +1,21 @@
+.following-section > div {
+  width: 90vw;
+}
+.request-card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.buttons-container {
+  justify-self: flex-end;
+}
+
+@media (min-width: 1050px) {
+  .following-section > div {
+    width: 45vw;
+  }
+  .request-card button {
+    font-size: 18px;
+  }
+}

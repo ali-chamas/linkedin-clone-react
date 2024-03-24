@@ -7,8 +7,8 @@ const Jobs = () => {
   const { user } = useContext(UserContext);
   return (
     <section className="flex column align-center jobs-section gap">
-      <h2>Available Jobs:</h2>
       <div className="flex column bg-primary p border-radius gap">
+        <h2>Available Jobs:</h2>
         {user.role == "company" && (
           <button className="btn-style bg-blue text-white">Add +</button>
         )}
