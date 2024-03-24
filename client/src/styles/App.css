@@ -19,6 +19,7 @@
   width: 30vw;
   height: 50px;
   border-radius: 5px;
+  display: flex;
 }
 .links-container {
   gap: 40px;
@@ -43,7 +44,6 @@
   border-radius: 50%;
 }
 
-
 section {
   margin-top: 20px;
 }
@@ -52,12 +52,30 @@ h2 {
   margin: 0;
 }
 
-.post-style {
-  width: 80vw;
+.mobile-searchBar {
+  display: none;
+}
+.desktop-searchBar {
+  display: flex;
 }
 
-@media (min-width: 1050px) {
-  .post-style {
-    width: 50vw;
+.posts-profile-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+@media (max-width: 660px) {
+  .mobile-searchBar {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+  }
+  .search-bar {
+    width: 80vw;
+  }
+  .desktop-searchBar {
+    display: none;
   }
 }

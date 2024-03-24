@@ -1,10 +1,52 @@
 [
   {
     "id": 1,
-    "name": "Ali",
+    "name": "Ali Chamas",
     "email": "ali2gmail.com",
     "password": "123456",
     "img": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXZhdGFyfGVufDB8fDB8fHww",
-    "role": "user"
+    "role": "user",
+    "cover_img": "https://images.unsplash.com/photo-1528465424850-54d22f092f9d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "position": "Full Stack Software Developer",
+    "location": "Beirut, Lebanon",
+    "description": "HEllo I'm Ali ,  a full stack software developer from beirut, Lebanon , Excited to excel in the digital world",
+    "experience": [
+      {
+        "position": " Software Developer",
+        "company": "Se Factory",
+        "start_year": 2020,
+        "end_year": 2022,
+        "description": "HEllo I'm Ali ,  a full stack software developer from beirut, Lebanon , Excited to excel in the digital world"
+      },
+      {
+        "position": " Software Developer",
+        "company": "Se Factory",
+        "start_year": 2020,
+        "end_year": 2022,
+        "description": "HEllo I'm Ali ,  a full stack software developer from beirut, Lebanon , Excited to excel in the digital world"
+      }
+    ],
+    "skills": ["React", "Javascript", "HTML", "CSS", "SQL", "PHP"],
+    "education": [
+      {
+        "major": "Computer Science",
+        "university": "LIU",
+        "start_year": 2020,
+        "end_year": 2022,
+        "description": "HEllo I'm Ali ,  a full stack software developer from beirut, Lebanon , Excited to excel in the digital world"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Ali Chamas",
+    "email": "ali2gmail.com",
+    "password": "123456",
+    "img": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YXZhdGFyfGVufDB8fDB8fHww",
+    "role": "company",
+    "cover_img": "https://images.unsplash.com/photo-1528465424850-54d22f092f9d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "position": "Full Stack Software Developer",
+    "location": "Beirut, Lebanon",
+    "description": "HEllo I'm Ali ,  a full stack software developer from beirut, Lebanon , Excited to excel in the digital world"
   }
 ]

@@ -7,7 +7,7 @@ const PostInput = () => {
   return (
     <div className="bg-primary  p flex column border-radius  post-input gap">
       <div className="flex gap">
-        <img src={user.img} alt="" className="profile-img" />
+        <img src={user.img} alt="" className="posts-profile-img" />
         <input
           type="text"
           placeholder="What's on your mind "

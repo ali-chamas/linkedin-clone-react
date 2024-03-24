@@ -68,11 +68,8 @@
 .hidden {
   display: none;
 }
-
-.profile-img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+.small-gap {
+  gap: 5px;
 }
 
 .text-align {
@@ -94,5 +91,8 @@
 @media (max-width: 768px) {
   .h1-size {
     font-size: 30px;
+  }
+  .large-font {
+    font-size: 28px;
   }
 }

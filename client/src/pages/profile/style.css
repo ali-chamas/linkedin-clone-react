@@ -1,0 +1,71 @@
+.profile-section > div {
+  width: 90vw;
+}
+.profile-info > img {
+  height: 200px;
+}
+
+.profile-info {
+  overflow: hidden;
+  height: 500px;
+  position: relative;
+}
+.profile-info button {
+  font-size: 20px;
+}
+
+.profile-img img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 5px white solid;
+}
+
+.profile-img {
+  position: absolute;
+  top: 25%;
+  margin: 0 40px;
+  width: 80vw;
+}
+.edit-img {
+  align-self: flex-end;
+  justify-self: flex-end;
+}
+
+h2 {
+  font-size: 26px;
+}
+
+.profile-info p {
+  font-size: 20px;
+}
+.edit-cover {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 20px;
+  border-radius: 50%;
+  padding: 15px;
+}
+
+.posts-container {
+  width: 60vw;
+}
+@media (min-width: 1050px) {
+  .profile-section > div {
+    width: 60vw;
+  }
+  .profile-info {
+    height: 600px;
+  }
+  .profile-img img {
+    width: 200px;
+    height: 200px;
+  }
+  .profile-img {
+    width: 55vw;
+  }
+  .edit-img {
+    align-self: center;
+  }
+}

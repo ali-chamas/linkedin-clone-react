@@ -3,10 +3,15 @@ import PostInput from "./components/PostInput";
 import "./style.css";
 import posts from "../../schemas/posts.json";
 import Post from "../../components/Post";
+import SearchBar from "../../components/SearchBar";
 
 const Home = () => {
   return (
-    <div className="flex column align-center gap">
+    <section className="flex column align-center gap home-section">
+      <div className="mobile-searchBar">
+        <SearchBar />
+      </div>
+
       <PostInput />
       <div className="flex align-center">
         <div className="filter"></div>
@@ -16,9 +21,13 @@ const Home = () => {
         </select>
       </div>
       {posts.length > 0
-        ? posts.map((post, i) => <Post post={post} key={i} />)
+        ? posts.map((post, i) => (
+            <div className="post-style">
+              <Post post={post} key={i} />
+            </div>
+          ))
         : "No posts yet"}
-    </div>
+    </section>
   );
 };
 

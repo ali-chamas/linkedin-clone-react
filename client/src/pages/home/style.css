@@ -1,6 +1,7 @@
-.post-input {
-  width: 80vw;
+.home-section > div {
+  width: 90vw;
 }
+
 .post-input button {
   font-size: 16px;
 }
@@ -20,7 +21,7 @@
 }
 .filter {
   height: 1px;
-  width: 78vw;
+  width: 88vw;
   background-color: gray;
 }
 
@@ -31,10 +32,10 @@ select {
 }
 
 @media (min-width: 1050px) {
-  .post-input {
-    width: 50vw;
-  }
   .filter {
-    width: 48vw;
+    width: 43vw;
+  }
+  .home-section > div {
+    width: 45vw;
   }
 }

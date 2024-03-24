@@ -16,7 +16,9 @@ const Navbar = () => {
         <a href="/" className="logo">
           <FaLinkedin />
         </a>
-        <SearchBar />
+        <div className="desktop-searchBar">
+          <SearchBar />
+        </div>
       </div>
 
       <div className="flex  align-center links-container">
