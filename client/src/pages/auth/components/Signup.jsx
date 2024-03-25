@@ -8,27 +8,34 @@ const Signup = ({ setIsLogin }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState("user");
+  const [error, setError] = useState("");
 
   const signup = async () => {
-    const user = new FormData();
-    user.append("name", name);
-    user.append("email", email);
-    user.append("password", password);
-    user.append("role", role);
+    if (email == "" || password == "" || name == "" || role == "") {
+      setError("please fill all fields");
+    } else {
+      const user = new FormData();
+      user.append("name", name);
+      user.append("email", email);
+      user.append("password", password);
+      user.append("role", role);
 
-    try {
-      const res = await fetch(`${apiURL}/users/signup.php`, {
-        method: "POST",
-        body: user,
-      });
-      const data = await res.json();
-      if (data.status == "success") {
-        login(data.user);
-        nav("/");
+      try {
+        const res = await fetch(`${apiURL}/users/signup.php`, {
+          method: "POST",
+          body: user,
+        });
+        const data = await res.json();
+        if (data.status == "success") {
+          login(data.user);
+          nav("/");
+        } else {
+          setError("email already taken");
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -49,7 +56,7 @@ const Signup = ({ setIsLogin }) => {
       </div>
       <select
         className=" bg-secondary"
-        defaultValue={"user"}
+        value={role}
         onChange={(e) => setRole(e.target.value)}
       >
         <option value="user">User</option>
@@ -58,6 +65,7 @@ const Signup = ({ setIsLogin }) => {
       <button className="btn-style bg-blue text-white" onClick={signup}>
         Signup
       </button>
+      <small className="text-danger">{error}</small>
       <small className="text-gray">
         Already have an account?
         <span

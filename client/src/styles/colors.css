@@ -27,3 +27,6 @@
 .bg-danger {
   background-color: rgb(172, 0, 0);
 }
+.text-danger {
+  color: rgb(172, 0, 0);
+}
