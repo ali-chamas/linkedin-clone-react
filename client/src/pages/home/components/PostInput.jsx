@@ -15,12 +15,17 @@ const PostInput = () => {
         />
       </div>
       <div className="flex justify-between ">
-        <div className="flex gap align-center media-input ">
+        <label
+          htmlFor="image-input"
+          className="flex gap align-center media-input "
+        >
           <p className="text-primary ">
             <MdPermMedia />
           </p>
+
           <p className="text-primary">Media</p>
-        </div>
+          <input type="file" style={{ display: "none" }} id="image-input" />
+        </label>
         <button className="btn-style bg-blue text-white ">Post</button>
       </div>
     </div>

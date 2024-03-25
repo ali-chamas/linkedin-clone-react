@@ -109,6 +109,25 @@
   max-width: 500px;
 }
 
+.popup-child input[type="text"] {
+  padding: 10px;
+  border-radius: 7px;
+  border: 1px solid lightgray;
+  outline: none;
+  max-width: 500px;
+}
+.popup-child textarea {
+  padding: 10px;
+  border-radius: 7px;
+  border: 1px solid lightgray;
+  outline: none;
+  max-width: 460px;
+  width: 500px;
+}
+.popup-child label {
+  margin-right: 9px;
+}
+
 @media (max-width: 768px) {
   .h1-size {
     font-size: 30px;
@@ -119,5 +138,12 @@
   .popup-child {
     padding: 40px;
     max-width: 300px;
+    width: 300px;
+  }
+  .popup-child input[type="text"] {
+    max-width: 260px;
+  }
+  .popup-child textarea {
+    max-width: 260px;
   }
 }

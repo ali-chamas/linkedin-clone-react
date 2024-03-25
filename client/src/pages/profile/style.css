@@ -51,6 +51,12 @@ h2 {
 .posts-container {
   width: 60vw;
 }
+
+.edit-img:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+
 @media (min-width: 1050px) {
   .profile-section > div {
     width: 60vw;

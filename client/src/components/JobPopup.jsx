@@ -7,8 +7,8 @@ const JobPopup = ({ job, setOpen }) => {
 
   return (
     <div className="popup">
-      <div className="bg-primary align-center border-radius flex column gap job-popup popup-child">
-        <div className="flex gap">
+      <div className="bg-primary align-center border-radius flex column gap job-popup popup-child ">
+        <div className="flex justfy-start gap w-full">
           <img src={job.companyImg} alt="" />
           <div className="flex column ">
             <h3 className="text-primary">{job.title}</h3>
@@ -18,13 +18,9 @@ const JobPopup = ({ job, setOpen }) => {
         </div>
         <p className="text-gray">{job.description}</p>
         <div className="flex gap">
-          {user.role == "user" ? (
+          {user.role == "user" && (
             <button className="flex align-center btn-style bg-blue text-white small-gap">
               Apply <FaLinkedin />
-            </button>
-          ) : (
-            <button className="flex align-center btn-style bg-danger text-white small-gap">
-              Delete
             </button>
           )}
           <button
