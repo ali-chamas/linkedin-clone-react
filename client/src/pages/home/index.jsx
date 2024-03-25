@@ -1,11 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PostInput from "./components/PostInput";
 import "./style.css";
 import posts from "../../schemas/posts.json";
 import Post from "../../components/Post";
-import SearchBar from "../../components/SearchBar";
 
+import SearchBar from "../../components/SearchBar";
+import { apiURL } from "../../apiURL/apiURL";
 const Home = () => {
+  const [posts, setPosts] = useState([]);
+
+  const fetchPosts = async () => {
+    const res = await fetch(`${apiURL}/posts/postsApi.php`);
+    const data = await res.json();
+    setPosts(data.posts);
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
   return (
     <section className="flex column align-center gap home-section">
       <div className="mobile-searchBar">
