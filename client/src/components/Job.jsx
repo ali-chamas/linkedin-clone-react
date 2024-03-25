@@ -11,10 +11,10 @@ const Job = ({ job }) => {
         className="flex gap align-center job-card p"
         onClick={() => setOpenPopup(true)}
       >
-        <img src={job.companyImg} alt="" />
+        <img src={job.userImage} alt="" />
         <div className="flex column small-gap small-p">
-          <h3 className="text-primary">{job.title}</h3>
-          <b>{job.companyName}</b>
+          <h3 className="text-primary">{job.position}</h3>
+          <b>{job.userName}</b>
           <p className="text-gray">{job.location}</p>
         </div>
       </div>

@@ -9,10 +9,10 @@ const JobPopup = ({ job, setOpen }) => {
     <div className="popup">
       <div className="bg-primary align-center border-radius flex column gap job-popup popup-child ">
         <div className="flex justfy-start gap w-full">
-          <img src={job.companyImg} alt="" />
+          <img src={job.userImage} alt="" />
           <div className="flex column ">
-            <h3 className="text-primary">{job.title}</h3>
-            <b>{job.companyName}</b>
+            <h3 className="text-primary">{job.position}</h3>
+            <b>{job.userName}</b>
             <p>{job.location}</p>
           </div>
         </div>

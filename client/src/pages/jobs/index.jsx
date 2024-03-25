@@ -1,15 +1,32 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./style.css";
-import jobs from "../../schemas/jobs.json";
+
 import Job from "../../components/Job";
 import { UserContext } from "../../context/UserContext";
 import AddJobPopup from "./components/AddJobPopup";
+import { apiURL } from "../../apiURL/apiURL";
 const Jobs = () => {
   const { user } = useContext(UserContext);
-
   if (!user) {
     window.location.assign("/auth");
   }
+  const [jobs, setJobs] = useState([]);
+
+  const fetchJobs = async () => {
+    try {
+      const res = await fetch(`${apiURL}/jobs/jobsApi.php`);
+      const data = await res.json();
+      if ((data.status = "success")) setJobs(data.jobs);
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchJobs();
+  }, []);
+
   const [openJobPopup, setOpenJobPopup] = useState(false);
   return (
     <>
@@ -24,7 +41,8 @@ const Jobs = () => {
               Add +
             </button>
           )}
-          {jobs.length > 0 && jobs.map((job, i) => <Job job={job} key={job} />)}
+          {jobs.length > 0 &&
+            jobs.map((job, i) => <Job job={job} key={job.id} />)}
         </div>
       </section>
       {openJobPopup && <AddJobPopup setOpen={setOpenJobPopup} user={user} />}

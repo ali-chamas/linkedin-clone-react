@@ -25,15 +25,6 @@ const Profile = () => {
   const queryParams = new URLSearchParams(location.search);
   const paramID = queryParams.get("id");
 
-  useEffect(() => {
-    if (user.id == paramID) {
-      setSignedinUser(true);
-    }
-    if (user.role == "company") {
-      setIsCompany(true);
-    }
-  }, []);
-
   const [experiences, setExperiences] = useState([]);
   const [educations, setEducations] = useState([]);
   const [skills, setSkills] = useState([]);
@@ -124,6 +115,14 @@ const Profile = () => {
     fethEducations();
   }, []);
 
+  useEffect(() => {
+    if (user.id == paramID) {
+      setSignedinUser(true);
+    }
+    if (profileUser.role == "company") {
+      setIsCompany(true);
+    }
+  }, []);
   const [signedinUser, setSignedinUser] = useState(false);
   const [isCompany, setIsCompany] = useState(false);
 

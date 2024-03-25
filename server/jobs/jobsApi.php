@@ -87,7 +87,7 @@
         }}
 
         $response['status']='success';
-        $response['posts']= $jobs;
+        $response['jobs']= $jobs;
         
     
     return $response;
@@ -128,7 +128,7 @@
         }
     }
         $response['status']='success';
-        $response['posts']= $jobs;
+        $response['jobs']= $jobs;
     
     return $response;
  }
