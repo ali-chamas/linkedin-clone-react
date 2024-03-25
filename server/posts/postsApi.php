@@ -6,7 +6,7 @@
 
  switch ($request_method) {
     case "GET":
-        if(!empty($_GET["iuserID"])){
+        if(!empty($_GET["userID"])){
             $id = intval($_GET["userID"]);
             $response = getUserPosts($id);
             echo json_encode($response);
@@ -93,12 +93,14 @@
 
  function getUserPosts($id){
     global $mysqli;
-    $query = $mysqli->prepare('select * from posts where userID=?');
+    $query = $mysqli->prepare('SELECT posts.*, users.name,users.position,users.image
+    FROM posts
+    JOIN users ON users.id = posts.userID
+    Where posts.userID=?
+    GROUP BY posts.id;');
     $query->bind_param('i', $id);
     $query->execute();
     $query->store_result();
-    $query->bind_result($id, $name, $rating,$logo);
-    $query->fetch();
     $num_rows=$query->num_rows();
     if($num_rows==0){
         $response['status']='Failed';
@@ -123,6 +125,8 @@
             $posts[] = $post;
         }
     }
+    $response['status']= 'success';
+    $response['posts']= $posts;
     return $response;
  }
 

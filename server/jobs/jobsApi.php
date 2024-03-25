@@ -6,25 +6,27 @@
 
  switch ($request_method) {
     case "GET":
-        if(!empty($_GET["iuserID"])){
+        if(!empty($_GET["userID"])){
             $id = intval($_GET["userID"]);
-            $response = getUserPosts($id);
+            $response = getUserJobs($id);
             echo json_encode($response);
         }else{
-            $response = getAllPosts();
+            $response = getAllJobs();
             echo json_encode($response);
         }
         break;
     case "POST":
         
             $description= $_POST["description"];
-            $image= $_POST["image"];
+            $position= $_POST["position"];
             $userID= $_POST["userID"];
+            $location=$_POST['location'];
             
 
 
-            $response = createPost($description,$image,$userID);
+            $response = createJob($position,$description,$location,$userID);
             echo json_encode($response);
+            
         
 
         break;
@@ -32,7 +34,7 @@
     case 'DELETE':
         if(!empty($_GET["id"])){
             $id = intval($_GET["id"]);
-            $response = deletePost($id);
+            $response = deleteJob($id);
             echo json_encode($response);
         }else{
             echo json_encode([
@@ -50,86 +52,90 @@
         break;
  }
 
- function getAllPosts(){
+ function getAllJobs(){
     global $mysqli;
     $query = $mysqli->prepare("
-    SELECT posts.*, users.name,users.position,users.image
-    FROM posts
-     JOIN users ON users.id = posts.userID
-    GROUP BY posts.id;");
+    SELECT jobs.*, users.name,users.image
+    FROM jobs
+     JOIN users ON users.id = jobs.userID
+    GROUP BY jobs.id;");
     $query->execute();
     $query->store_result();
     $num_rows = $query->num_rows();
 
     if($num_rows==0){
         $response['status']='Failed';
-        $response['message']= 'no airlines available';
+        $response['message']= 'no jobs available';
     }else{
-        $posts = [];
-        $query->bind_result($id, $description, $image,$createdAt,$userID,$userName,$userPosition,$userImg);
+        $jobs = [];
+        $query->bind_result($id, $position, $description,$location,$postedAt,$userID,$userName,$userImg);
         while($query->fetch()){
-            $post = [
+            $job = [
                 'id' => $id,
+                'position'=>$position,
                 'description'=>$description,
-                'image'=> $image,
-                'createdAt'=> $createdAt,
+                'location'=> $location,
+                'postedAt'=> $postedAt,
                 'userID'=> $userID,
                 'userName'=> $userName,
-                'userPosition'=> $userPosition,
                 'userImage'=> $userImg
                 
                
             ];
 
-            $posts[] = $post;
-        }
+            $jobs[] = $job;
+        }}
 
         $response['status']='success';
-        $response['posts']= $posts;
+        $response['posts']= $jobs;
         
-    }
+    
     return $response;
  }
 
- function getUserPosts($id){
+ function getUserJobs($id){
     global $mysqli;
-    $query = $mysqli->prepare('select * from posts where userID=?');
+    $query = $mysqli->prepare('SELECT jobs.*, users.name,users.image
+    FROM jobs
+     JOIN users ON users.id = jobs.userID
+     WHERE jobs.userID=?
+    GROUP BY jobs.id');
     $query->bind_param('i', $id);
     $query->execute();
     $query->store_result();
-    $query->bind_result($id, $name, $rating,$logo);
-    $query->fetch();
     $num_rows=$query->num_rows();
     if($num_rows==0){
         $response['status']='Failed';
         $response['message']= 'no airlines available';
     }else{
-        $posts = [];
-        $query->bind_result($id, $description, $image,$createdAt,$userID,$userName,$userPosition,$userImg);
+        $jobs = [];
+        $query->bind_result($id, $position, $description,$location,$postedAt,$userID,$userName,$userImg);
         while($query->fetch()){
-            $post = [
+            $job = [
                 'id' => $id,
+                'position'=>$position,
                 'description'=>$description,
-                'image'=> $image,
-                'createdAt'=> $createdAt,
+                'location'=> $location,
+                'postedAt'=> $postedAt,
                 'userID'=> $userID,
                 'userName'=> $userName,
-                'userPosition'=> $userPosition,
                 'userImage'=> $userImg
                 
                
             ];
 
-            $posts[] = $post;
+            $jobs[] = $job;
         }
     }
+        $response['status']='success';
+        $response['posts']= $jobs;
+    
     return $response;
  }
-
- function createPost($description,$image,$userID){
+ function createJob($position,$description,$location,$userID){
     global $mysqli;
-    $query = $mysqli->prepare('insert into posts(description,image,userID) values(?,?,?)');
-    $query->bind_param('ssi', $description,$image,$userID);
+    $query = $mysqli->prepare('insert into jobs(position,description,location,userID) values(?,?,?,?)');
+    $query->bind_param('sssi', $position,$description,$location,$userID);
     if($query->execute()){
         $response['status']="success";
     }else{
@@ -140,9 +146,9 @@
     
  }
 
- function deletePost($id){
+ function deleteJob($id){
     global $mysqli;
-    $query = $mysqli->prepare("DELETE FROM posts WHERE id = ?");
+    $query = $mysqli->prepare("DELETE FROM jobs WHERE id = ?");
     $query->bind_param("i", $id);
     $query->execute();
     $query->store_result();
