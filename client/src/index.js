@@ -8,6 +8,7 @@ import UserContextProvider from "./context/UserContext";
 import Profile from "./pages/profile";
 import Jobs from "./pages/jobs";
 import Following from "./pages/following";
+import Auth from "./pages/auth";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -22,6 +23,7 @@ root.render(
             path="/following"
             element={<Layout children={<Following />} />}
           />
+          <Route path="/auth" element={<Auth />} />
         </Routes>
       </BrowserRouter>
     </UserContextProvider>

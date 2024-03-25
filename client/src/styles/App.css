@@ -86,6 +86,29 @@ h2 {
   font-size: 16px;
 }
 
+.profile-drop {
+  position: absolute;
+  top: 0;
+  right: -10px;
+  margin-top: 70px;
+  width: 200px;
+  background-color: rgba(240, 248, 255, 0.689);
+  backdrop-filter: blur(10px);
+  z-index: 5;
+}
+.profile-drop p {
+  font-size: 14px;
+  text-align: center;
+}
+a {
+  text-decoration: none;
+}
+
+.profile-dropdown-container {
+  cursor: pointer;
+  position: relative;
+}
+
 @media (max-width: 660px) {
   .mobile-searchBar {
     display: flex;
