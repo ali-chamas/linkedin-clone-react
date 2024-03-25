@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import img from "../../assets/login-img.svg";
 import "./style.css";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import { FaLinkedin } from "react-icons/fa6";
+import { UserContext } from "../../context/UserContext";
 const Auth = () => {
+  const { user } = useContext(UserContext);
+  if (user) {
+    window.location.assign("/");
+  }
   const [isLogin, setIsLogin] = useState(true);
 
   return (

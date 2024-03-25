@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./style.css";
 import requests from "../../schemas/requests.json";
 import Request from "./components/Request";
+import { UserContext } from "../../context/UserContext";
 
 const Following = () => {
+  const { user } = useContext(UserContext);
+
+  if (!user) {
+    window.location.assign("/auth");
+  }
+
   const [activeFilter, setActiveFilter] = useState("requests");
   return (
     <section className="flex column gap align-center following-section">

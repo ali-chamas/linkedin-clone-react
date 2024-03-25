@@ -1,26 +1,63 @@
-import React from "react";
-
+import React, { useContext, useState } from "react";
+import { apiURL } from "../../../apiURL/apiURL";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../../context/UserContext";
 const Signup = ({ setIsLogin }) => {
+  const { login } = useContext(UserContext);
+  const nav = useNavigate();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
+
+  const signup = async () => {
+    const user = new FormData();
+    user.append("name", name);
+    user.append("email", email);
+    user.append("password", password);
+    user.append("role", role);
+
+    try {
+      const res = await fetch(`${apiURL}/users/signup.php`, {
+        method: "POST",
+        body: user,
+      });
+      const data = await res.json();
+      if (data.status == "success") {
+        login(data.user);
+        nav("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="bg-primary p flex column gap auth-card align-center">
       <h3 className="text-primary">Hello there</h3>
       <div className="flex column">
         <label>Name</label>
-        <input type="password" />
+        <input type="text" onChange={(e) => setName(e.target.value)} />
       </div>
       <div className="flex column">
         <label>Email</label>
-        <input type="email" />
+        <input type="email" onChange={(e) => setEmail(e.target.value)} />
       </div>
       <div className="flex column">
         <label>Password</label>
-        <input type="password" />
+        <input type="password" onChange={(e) => setPassword(e.target.value)} />
       </div>
-      <select className=" bg-secondary">
+      <select
+        className=" bg-secondary"
+        defaultValue={"user"}
+        onChange={(e) => setRole(e.target.value)}
+      >
         <option value="user">User</option>
         <option value="company">Company</option>
       </select>
-      <button className="btn-style bg-blue text-white">Signup</button>
+      <button className="btn-style bg-blue text-white" onClick={signup}>
+        Signup
+      </button>
       <small className="text-gray">
         Already have an account?
         <span

@@ -6,6 +6,10 @@ import { UserContext } from "../../context/UserContext";
 import AddJobPopup from "./components/AddJobPopup";
 const Jobs = () => {
   const { user } = useContext(UserContext);
+
+  if (!user) {
+    window.location.assign("/auth");
+  }
   const [openJobPopup, setOpenJobPopup] = useState(false);
   return (
     <>

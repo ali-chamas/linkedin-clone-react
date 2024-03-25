@@ -73,7 +73,7 @@ const Navbar = () => {
           className="profile-dropdown-container flex column align-center"
           onClick={() => setOpenDropdown((open) => !open)}
         >
-          <img src={user.img} alt="" />
+          <img src={user.image} alt="" />
           {openDropdown && <ProfileDropdown user={user} />}
         </div>
       </div>

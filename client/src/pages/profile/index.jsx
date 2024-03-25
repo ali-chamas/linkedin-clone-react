@@ -16,11 +16,14 @@ import EducationPopup from "./components/EducationPopup";
 import { FaTrash } from "react-icons/fa";
 
 const Profile = () => {
+  const { user } = useContext(UserContext);
+  console.log(user);
+  if (!user) {
+    window.location.assign("/auth");
+  }
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const paramID = queryParams.get("id");
-
-  const { user } = useContext(UserContext);
 
   const [signedinUser, setSignedinUser] = useState(false);
   const [isCompany, setIsCompany] = useState(false);
@@ -45,7 +48,7 @@ const Profile = () => {
     <>
       <section className="flex column gap align-center profile-section">
         <div className="flex column gap profile-info border-radius bg-primary">
-          <img src={user.cover_img} alt="" />
+          <img src={user.cover} alt="" />
           {signedinUser && (
             <div>
               <label
@@ -59,7 +62,7 @@ const Profile = () => {
           )}
           <div className="profile-img flex column gap">
             <div className="flex w-full justify-between">
-              <img src={user.img} alt="" />
+              <img src={user.image} alt="" />
               {signedinUser && (
                 <span
                   className="text-gray large-font edit-img"
@@ -92,9 +95,9 @@ const Profile = () => {
           <div className="flex justify-between">
             <h2>Bio:</h2>
           </div>
-          <p className="text-gray">{user.description}</p>
+          <p className="text-gray">{user.bio}</p>
         </div>
-        {!isCompany ? (
+        {/* {!isCompany ? (
           <div className="flex column gap">
             {user.experience.length > 0 && (
               <div className="flex column gap border-radius bg-primary p ">
@@ -227,7 +230,7 @@ const Profile = () => {
             <div className="posts-container">
               <Post post={post} key={i} />
             </div>
-          ))}
+          ))} */}
       </section>
       {openEditInfo && <InfoPopup setOpen={setOpenEditInfo} user={user} />}
       {openEditExperience && (

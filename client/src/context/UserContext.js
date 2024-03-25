@@ -4,7 +4,9 @@ import users from "../schemas/users.json";
 export const UserContext = createContext();
 
 const UserContextProvider = ({ children }) => {
-  const [user, setUser] = useState(users[0]);
+  const [user, setUser] = useState(
+    JSON.parse(window.localStorage.getItem("session"))
+  );
 
   const login = (userData) => {
     setUser(userData);
