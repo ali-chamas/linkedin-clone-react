@@ -66,6 +66,7 @@ const Profile = () => {
         checkFollowing();
       }
     } catch (error) {
+      setFollowings([]);
       console.log(error);
     }
   };
@@ -179,16 +180,17 @@ const Profile = () => {
     }
   };
   const fetchJobs = async () => {
-    try {
-      const res = await fetch(`${apiURL}/jobs/jobsApi.php?userID=${paramID}`);
-      const data = await res.json();
-      if (data.status == "success") {
-        setJobs(data.jobs);
+    if (isCompany)
+      try {
+        const res = await fetch(`${apiURL}/jobs/jobsApi.php?userID=${paramID}`);
+        const data = await res.json();
+        if (data.status == "success") {
+          setJobs(data.jobs);
+        }
+      } catch (error) {
+        setJobs([]);
+        console.log(error);
       }
-    } catch (error) {
-      setJobs([]);
-      console.log(error);
-    }
   };
 
   const deleteExp = async (id) => {
