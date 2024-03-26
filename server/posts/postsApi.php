@@ -132,6 +132,7 @@
 
  function createPost($description,$image,$userID){
     global $mysqli;
+    
     $query = $mysqli->prepare('insert into posts(description,image,userID) values(?,?,?)');
     $query->bind_param('ssi', $description,$image,$userID);
     if($query->execute()){

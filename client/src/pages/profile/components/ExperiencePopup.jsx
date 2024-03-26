@@ -1,11 +1,32 @@
 import React, { useState } from "react";
-
-const ExperiencePopup = ({ setOpen, user }) => {
+import { apiURL } from "../../../apiURL/apiURL";
+const ExperiencePopup = ({ setOpen, user, fetchExp }) => {
   const [newName, setNewName] = useState("");
   const [newPosition, setNewPosition] = useState("");
   const [newStartDate, setNewStartDate] = useState("");
   const [newEndDate, setNewEndDate] = useState("");
   const [newDesc, setNewDesc] = useState("");
+
+  const addExp = async () => {
+    try {
+      const exp = new FormData();
+      exp.append("position", newName);
+      exp.append("company", newName);
+      exp.append("start_year", newStartDate);
+      exp.append("end_year", newEndDate);
+      exp.append("description", newDesc);
+      exp.append("userID", user.id);
+      const res = await fetch(`${apiURL}/experiences/experiencesApi.php`, {
+        method: "POST",
+        body: exp,
+      });
+      const data = await res.json();
+      await fetchExp();
+      setOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="popup">
       <div className="bg-primary align-center border-radius flex column gap job-popup popup-child">
@@ -39,7 +60,10 @@ const ExperiencePopup = ({ setOpen, user }) => {
         </div>
 
         <div className="flex gap">
-          <button className="flex align-center btn-style bg-blue text-white small-gap">
+          <button
+            className="flex align-center btn-style bg-blue text-white small-gap"
+            onClick={addExp}
+          >
             Save
           </button>
 

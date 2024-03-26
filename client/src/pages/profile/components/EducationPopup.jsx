@@ -1,11 +1,34 @@
 import React, { useState } from "react";
+import { apiURL } from "../../../apiURL/apiURL";
 
-const EducationPopup = ({ setOpen, user }) => {
+const EducationPopup = ({ setOpen, user, fetchEducations }) => {
   const [newName, setNewName] = useState("");
   const [newDegree, setNewDegree] = useState("");
   const [newStartDate, setNewStartDate] = useState("");
   const [newEndDate, setNewEndDate] = useState("");
   const [newDesc, setNewDesc] = useState("");
+
+  const addEdu = async () => {
+    try {
+      const edu = new FormData();
+      edu.append("major", newDegree);
+      edu.append("start_year", newStartDate);
+      edu.append("end_year", newEndDate);
+      edu.append("description", newDesc);
+      edu.append("userID", user.id);
+      edu.append("university", newName);
+      const res = await fetch(`${apiURL}/educations/educationsApi.php`, {
+        method: "POST",
+        body: edu,
+      });
+      const data = await res.json();
+      await fetchEducations();
+      setOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="popup">
       <div className="bg-primary align-center border-radius flex column gap job-popup popup-child">
@@ -39,7 +62,10 @@ const EducationPopup = ({ setOpen, user }) => {
         </div>
 
         <div className="flex gap">
-          <button className="flex align-center btn-style bg-blue text-white small-gap">
+          <button
+            className="flex align-center btn-style bg-blue text-white small-gap"
+            onClick={addEdu}
+          >
             Save
           </button>
 

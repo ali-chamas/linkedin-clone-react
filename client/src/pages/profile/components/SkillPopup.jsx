@@ -1,11 +1,30 @@
 import React, { useState } from "react";
+import { apiURL } from "../../../apiURL/apiURL";
 
-const SkillPopup = ({ setOpen, user }) => {
+const SkillPopup = ({ setOpen, user, fetchSkills }) => {
   const [skill, setSkill] = useState("");
+
+  const addSkill = async () => {
+    try {
+      const skillData = new FormData();
+      skillData.append("skill", skill);
+
+      skillData.append("userID", user.id);
+      const res = await fetch(`${apiURL}/skills/skillsApi.php`, {
+        method: "POST",
+        body: skillData,
+      });
+      const data = await res.json();
+      await fetchSkills();
+      setOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="popup">
+      <h3 className="text-primary">Add Skill</h3>
       <div className="bg-primary align-center border-radius flex column gap job-popup popup-child">
-        <h3 className="text-primary">Add Skill</h3>
         <div className="flex column gap">
           <input
             type="text"
@@ -15,7 +34,10 @@ const SkillPopup = ({ setOpen, user }) => {
         </div>
 
         <div className="flex gap">
-          <button className="flex align-center btn-style bg-blue text-white small-gap">
+          <button
+            className="flex align-center btn-style bg-blue text-white small-gap"
+            onClick={addSkill}
+          >
             Save
           </button>
 

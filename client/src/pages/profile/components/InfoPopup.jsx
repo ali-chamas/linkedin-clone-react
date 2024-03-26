@@ -1,14 +1,33 @@
 import React, { useState } from "react";
 import { MdPermMedia } from "react-icons/md";
+import { apiURL } from "../../../apiURL/apiURL";
 
-const InfoPopup = ({ setOpen, user }) => {
+const InfoPopup = ({ setOpen, user, fetchUser }) => {
   const [newName, setNewName] = useState(user.name);
   const [newPosition, setNewPosition] = useState(user.position);
   const [newLocation, setNewLocation] = useState(user.location);
   const [newBio, setNewBio] = useState(user.description);
-  const [newImage, setNewImage] = useState(user.img);
+  const [newImage, setNewImage] = useState(user.image);
 
-  console.log(newImage);
+  const updateUser = async () => {
+    try {
+      const newData = new FormData();
+      newData.append("name", newName);
+      newData.append("position", newPosition);
+      newData.append("location", newLocation);
+      newData.append("bio", newBio);
+      newData.append("image", newImage);
+      const res = await fetch(`${apiURL}/users/editUser.php?id=${user.id}`, {
+        method: "POST",
+        body: newData,
+      });
+      const data = await res.json();
+      console.log(data);
+      await fetchUser();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="popup">
@@ -60,7 +79,10 @@ const InfoPopup = ({ setOpen, user }) => {
         </div>
 
         <div className="flex gap">
-          <button className="flex align-center btn-style bg-blue text-white small-gap">
+          <button
+            className="flex align-center btn-style bg-blue text-white small-gap"
+            onClick={updateUser}
+          >
             Save
           </button>
 

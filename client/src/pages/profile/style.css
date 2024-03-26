@@ -32,6 +32,12 @@
   justify-self: flex-end;
 }
 
+.posts-container > .edit-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 20px;
+}
 h2 {
   font-size: 26px;
 }
@@ -50,6 +56,7 @@ h2 {
 
 .posts-container {
   width: 60vw;
+  position: relative;
 }
 
 .edit-img:hover {

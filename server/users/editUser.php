@@ -19,17 +19,17 @@
     $bio=$_POST['bio'];
     
     
-    $response = edituser($id,$name,$password,$image,$position,$location,$bio);
+    $response = edituser($id,$name,$image,$position,$location,$bio);
     echo json_encode($response);
 
 }
 
  }
- function edituser($id,$name,$password,$image,$position,$location,$bio){
+ function edituser($id,$name,$image,$position,$location,$bio){
   global $mysqli; 
 
   $query = $mysqli->prepare("UPDATE users SET name=?,image=?,position=?,location=?,bio=? WHERE id=?");
-  $query->bind_param("ssssssi",$name,$image,$position,$location,$bio, $id);
+  $query->bind_param("sssssi",$name,$image,$position,$location,$bio, $id);
   if($query->execute()){
      $response['status']="success";
   }else{

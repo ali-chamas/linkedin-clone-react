@@ -24,7 +24,7 @@ const Home = () => {
         <SearchBar />
       </div>
 
-      <PostInput />
+      <PostInput fetchPosts={fetchPosts} />
       <div className="flex align-center">
         <div className="filter"></div>
         <select>

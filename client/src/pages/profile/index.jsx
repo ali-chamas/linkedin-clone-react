@@ -57,7 +57,7 @@ const Profile = () => {
       console.log(error);
     }
   };
-  const fethEducations = async () => {
+  const fetchEducations = async () => {
     try {
       const res = await fetch(
         `${apiURL}/educations/educationsApi.php?userID=${paramID}`
@@ -106,13 +106,70 @@ const Profile = () => {
     }
   };
 
+  const deleteExp = async (id) => {
+    try {
+      const res = await fetch(
+        `${apiURL}/experiences/experiencesApi.php?id=${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      fetchExperience();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const deleteSkill = async (id) => {
+    try {
+      const res = await fetch(`${apiURL}/skills/skillsApi.php?id=${id}`, {
+        method: "DELETE",
+      });
+      fetchSkills();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const deleteEdu = async (id) => {
+    try {
+      const res = await fetch(
+        `${apiURL}/educations/educationsApi.php?id=${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      fetchEducations();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const deleteJob = async (id) => {
+    try {
+      const res = await fetch(`${apiURL}/jobs/jobsApi.php?id=${id}`, {
+        method: "DELETE",
+      });
+      fetchJobs();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const deletePosts = async (id) => {
+    try {
+      const res = await fetch(`${apiURL}/posts/postsApi.php?id=${id}`, {
+        method: "DELETE",
+      });
+      fetchPosts();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     fetchUser();
     fetchExperience();
     fetchJobs();
     fetchPosts();
     fetchSkills();
-    fethEducations();
+    fetchEducations();
   }, []);
 
   useEffect(() => {
@@ -214,7 +271,10 @@ const Profile = () => {
                         <small className="text-gray">{ex.description}</small>
                       </div>
                       {signedinUser && (
-                        <p className="text-gray  edit-img">
+                        <p
+                          className="text-gray  edit-img"
+                          onClick={() => deleteExp(ex.id)}
+                        >
                           <FaTrash />
                         </p>
                       )}
@@ -241,7 +301,10 @@ const Profile = () => {
                     <div className="flex justify-between align-center">
                       <p className="w-full">{skill.skill}</p>
                       {signedinUser && (
-                        <p className="text-gray  edit-img">
+                        <p
+                          className="text-gray  edit-img"
+                          onClick={() => deleteSkill(skill.id)}
+                        >
                           <FaTrash />
                         </p>
                       )}
@@ -275,7 +338,10 @@ const Profile = () => {
                         <small className="text-gray">{ex.description}</small>
                       </div>
                       {signedinUser && (
-                        <p className="text-gray  edit-img">
+                        <p
+                          className="text-gray  edit-img"
+                          onClick={() => deleteEdu(ex.id)}
+                        >
                           <FaTrash />
                         </p>
                       )}
@@ -304,7 +370,10 @@ const Profile = () => {
                   <div className="flex justify-between">
                     <Job job={job} key={i} />
                     {signedinUser && (
-                      <p className="text-gray  edit-img">
+                      <p
+                        className="text-gray  edit-img"
+                        onClick={() => deleteJob(job.id)}
+                      >
                         <FaTrash />
                       </p>
                     )}
@@ -318,16 +387,44 @@ const Profile = () => {
           posts.map((post, i) => (
             <div className="posts-container">
               <Post post={post} key={i} />
+              {signedinUser && (
+                <p
+                  className="text-gray  edit-img"
+                  onClick={() => deletePosts(post.id)}
+                >
+                  <FaTrash />
+                </p>
+              )}
             </div>
           ))}
       </section>
-      {openEditInfo && <InfoPopup setOpen={setOpenEditInfo} user={user} />}
-      {openEditExperience && (
-        <ExperiencePopup setOpen={setOpenEditExperience} user={user} />
+      {openEditInfo && (
+        <InfoPopup
+          setOpen={setOpenEditInfo}
+          user={user}
+          fetchUser={fetchUser}
+        />
       )}
-      {openEditSkill && <SkillPopup setOpen={setOpenEditSkill} user={user} />}
+      {openEditExperience && (
+        <ExperiencePopup
+          setOpen={setOpenEditExperience}
+          user={user}
+          fetchExp={fetchExperience}
+        />
+      )}
+      {openEditSkill && (
+        <SkillPopup
+          setOpen={setOpenEditSkill}
+          user={user}
+          fetchSkills={fetchSkills}
+        />
+      )}
       {openEditEducation && (
-        <EducationPopup setOpen={setOpenEditEducation} user={user} />
+        <EducationPopup
+          setOpen={setOpenEditEducation}
+          user={user}
+          fetchEducations={fetchEducations}
+        />
       )}
     </>
   );
