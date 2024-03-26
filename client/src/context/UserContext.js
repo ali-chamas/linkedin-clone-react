@@ -1,6 +1,6 @@
 import { createContext } from "react";
 import { useState } from "react";
-import users from "../schemas/users.json";
+
 export const UserContext = createContext();
 
 const UserContextProvider = ({ children }) => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PostInput from "./components/PostInput";
 import "./style.css";
-import posts from "../../schemas/posts.json";
+
 import Post from "../../components/Post";
 
 import SearchBar from "../../components/SearchBar";

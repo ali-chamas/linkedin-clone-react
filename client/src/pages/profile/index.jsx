@@ -14,7 +14,7 @@ import SkillPopup from "./components/SkillPopup";
 import EducationPopup from "./components/EducationPopup";
 import { FaTrash } from "react-icons/fa";
 import { apiURL } from "../../apiURL/apiURL";
-import JobPopup from "../../components/JobPopup";
+
 import AddJobPopup from "./components/AddJobPopup.jsx";
 
 const Profile = () => {
@@ -37,20 +37,6 @@ const Profile = () => {
   const [jobs, setJobs] = useState([]);
   const [profileUser, setProfileUser] = useState({});
 
-  const fetchFollowings = async () => {
-    try {
-      const res = await fetch(
-        `${apiURL}/followings/getFollowings.php?id=${user.id}`
-      );
-      const data = await res.json();
-      if (data.status == "success") {
-        setFollowings(data.followings);
-        checkFollowing();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const fetchFollowers = async () => {
     try {
       const res = await fetch(
@@ -69,11 +55,28 @@ const Profile = () => {
     setFollowersCount(followers.length);
   };
 
+  const fetchFollowings = async () => {
+    try {
+      const res = await fetch(
+        `${apiURL}/followings/getFollowings.php?id=${user.id}`
+      );
+      const data = await res.json();
+      if (data.status == "success") {
+        setFollowings(data.followings);
+        checkFollowing();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const checkFollowing = () => {
     for (let i = 0; i < followings.length; i++) {
       if (followings[i].following == profileUser.id) {
         setIsFollowed(true);
         break;
+      } else {
+        setIsFollowed(false);
       }
     }
   };
