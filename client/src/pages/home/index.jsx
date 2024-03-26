@@ -32,7 +32,7 @@ const Home = () => {
           <option value="recent">recent</option>
         </select>
       </div>
-      {posts.length > 0
+      {posts && posts.length > 0
         ? posts.map((post, i) => (
             <div key={i} className="post-style">
               <Post post={post} key={i} />

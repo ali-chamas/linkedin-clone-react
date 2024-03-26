@@ -3,7 +3,7 @@ import "./style.css";
 
 import Job from "../../components/Job";
 import { UserContext } from "../../context/UserContext";
-import AddJobPopup from "./components/AddJobPopup";
+
 import { apiURL } from "../../apiURL/apiURL";
 const Jobs = () => {
   const { user } = useContext(UserContext);
@@ -33,19 +33,12 @@ const Jobs = () => {
       <section className="flex column align-center jobs-section gap ">
         <div className="flex column bg-primary p border-radius gap">
           <h2>Available Jobs:</h2>
-          {user.role == "company" && (
-            <button
-              className="btn-style bg-blue text-white"
-              onClick={() => setOpenJobPopup(true)}
-            >
-              Add +
-            </button>
-          )}
+
           {jobs.length > 0 &&
             jobs.map((job, i) => <Job job={job} key={job.id} />)}
         </div>
       </section>
-      {openJobPopup && <AddJobPopup setOpen={setOpenJobPopup} user={user} />}
+      \
     </>
   );
 };

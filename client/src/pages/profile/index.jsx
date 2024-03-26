@@ -14,10 +14,15 @@ import SkillPopup from "./components/SkillPopup";
 import EducationPopup from "./components/EducationPopup";
 import { FaTrash } from "react-icons/fa";
 import { apiURL } from "../../apiURL/apiURL";
+import JobPopup from "../../components/JobPopup";
+import AddJobPopup from "./components/AddJobPopup.jsx";
 
 const Profile = () => {
   const { user } = useContext(UserContext);
-
+  const [followings, setFollowings] = useState([]);
+  const [isFollowed, setIsFollowed] = useState(false);
+  const [followers, setFollowers] = useState([]);
+  const [followersCount, setFollowersCount] = useState(0);
   if (!user) {
     window.location.assign("/auth");
   }
@@ -31,6 +36,78 @@ const Profile = () => {
   const [posts, setPosts] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [profileUser, setProfileUser] = useState({});
+
+  const fetchFollowings = async () => {
+    try {
+      const res = await fetch(
+        `${apiURL}/followings/getFollowings.php?id=${user.id}`
+      );
+      const data = await res.json();
+      if (data.status == "success") {
+        setFollowings(data.followings);
+        checkFollowing();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const fetchFollowers = async () => {
+    try {
+      const res = await fetch(
+        `${apiURL}/followings/getFollowers.php?id=${profileUser.id}`
+      );
+      const data = await res.json();
+      if (data.status == "success") {
+        setFollowers(data.followers);
+        getFollowersCount();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getFollowersCount = () => {
+    setFollowersCount(followers.length);
+  };
+
+  const checkFollowing = () => {
+    for (let i = 0; i < followings.length; i++) {
+      if (followings[i].following == profileUser.id) {
+        setIsFollowed(true);
+        break;
+      }
+    }
+  };
+
+  const followUser = async () => {
+    const follow = new FormData();
+    follow.append("follower", user.id);
+    follow.append("following", profileUser.id);
+    try {
+      const res = await fetch(`${apiURL}/followings/followUser.php`, {
+        method: "POST",
+        body: follow,
+      });
+      const data = await res.json();
+
+      await fetchFollowings();
+      checkFollowing();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const unfollowUser = async () => {
+    try {
+      const res = await fetch(
+        `${apiURL}/followings/unfollowUser.php?follower=${user.id}&following=${profileUser.id}`
+      );
+      const data = await res.json();
+
+      await fetchFollowings();
+      checkFollowing();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const fetchUser = async () => {
     try {
@@ -54,6 +131,7 @@ const Profile = () => {
         setExperiences(data.experiences);
       }
     } catch (error) {
+      setExperiences([]);
       console.log(error);
     }
   };
@@ -67,6 +145,7 @@ const Profile = () => {
         setEducations(data.educations);
       }
     } catch (error) {
+      setEducations([]);
       console.log(error);
     }
   };
@@ -80,6 +159,7 @@ const Profile = () => {
         setSkills(data.skills);
       }
     } catch (error) {
+      setSkills([]);
       console.log(error);
     }
   };
@@ -91,6 +171,7 @@ const Profile = () => {
         setPosts(data.posts);
       }
     } catch (error) {
+      setPosts([]);
       console.log(error);
     }
   };
@@ -102,6 +183,7 @@ const Profile = () => {
         setJobs(data.jobs);
       }
     } catch (error) {
+      setJobs([]);
       console.log(error);
     }
   };
@@ -173,13 +255,18 @@ const Profile = () => {
   }, []);
 
   useEffect(() => {
+    fetchFollowings();
+    fetchFollowers();
+  }, [followings.length, followers.length]);
+
+  useEffect(() => {
     if (user.id == paramID) {
       setSignedinUser(true);
     }
     if (profileUser.role == "company") {
       setIsCompany(true);
     }
-  }, []);
+  }, [profileUser]);
   const [signedinUser, setSignedinUser] = useState(false);
   const [isCompany, setIsCompany] = useState(false);
 
@@ -222,15 +309,25 @@ const Profile = () => {
               <h2>{profileUser.name}</h2>
               <p>{profileUser.position}</p>
               <p className="text-gray">{profileUser.location}</p>
-              <h3 className="text-primary">440 followers</h3>
+              <h3 className="text-primary">{followersCount} Followers</h3>
             </div>
             <div className="flex gap align-center ">
               {signedinUser ? (
                 <button className="btn-style bg-blue text-white">
                   Add profile section
                 </button>
+              ) : isFollowed ? (
+                <button
+                  className="btn-style bg-primary border-blue text-primary flex align-center small-gap"
+                  onClick={unfollowUser}
+                >
+                  Unfollow
+                </button>
               ) : (
-                <button className="btn-style bg-blue text-white flex align-center small-gap">
+                <button
+                  className="btn-style bg-blue text-white flex align-center small-gap"
+                  onClick={followUser}
+                >
                   Follow <IoIosAdd />
                 </button>
               )}
@@ -245,22 +342,23 @@ const Profile = () => {
         </div>
         {!isCompany ? (
           <div className="flex column gap">
-            {experiences.length > 0 && (
-              <div className="flex column gap border-radius bg-primary p ">
-                <div className="flex justify-between">
-                  <h2>Experience:</h2>
-                  {signedinUser && (
-                    <p
-                      className="text-gray large-font edit-img"
-                      onClick={() => setOpenEditExperience(true)}
-                    >
-                      +
-                    </p>
-                  )}
-                </div>
+            <div className="flex column gap border-radius bg-primary p ">
+              <div className="flex justify-between">
+                <h2>Experience:</h2>
+                {signedinUser && (
+                  <p
+                    className="text-gray large-font edit-img"
+                    onClick={() => setOpenEditExperience(true)}
+                  >
+                    +
+                  </p>
+                )}
+              </div>
 
-                <div className="flex column gap">
-                  {experiences.map((ex, i) => (
+              <div className="flex column gap">
+                {experiences &&
+                  experiences.length > 0 &&
+                  experiences.map((ex, i) => (
                     <div className="flex jusfity-between">
                       <div className="flex column small-gap w-full" key={i}>
                         <h3>{ex.position}</h3>
@@ -280,24 +378,25 @@ const Profile = () => {
                       )}
                     </div>
                   ))}
-                </div>
               </div>
-            )}
-            {skills.length > 0 && (
-              <div className="flex column gap border-radius bg-primary p ">
-                <div className="flex justify-between">
-                  <h2>Skills:</h2>
-                  {signedinUser && (
-                    <p
-                      className="text-gray large-font edit-img"
-                      onClick={() => setOpenEditSkill(true)}
-                    >
-                      +
-                    </p>
-                  )}
-                </div>
-                <div className="flex column gap">
-                  {skills.map((skill, i) => (
+            </div>
+
+            <div className="flex column gap border-radius bg-primary p ">
+              <div className="flex justify-between">
+                <h2>Skills:</h2>
+                {signedinUser && (
+                  <p
+                    className="text-gray large-font edit-img"
+                    onClick={() => setOpenEditSkill(true)}
+                  >
+                    +
+                  </p>
+                )}
+              </div>
+              <div className="flex column gap">
+                {skills &&
+                  skills.length > 0 &&
+                  skills.map((skill, i) => (
                     <div className="flex justify-between align-center">
                       <p className="w-full">{skill.skill}</p>
                       {signedinUser && (
@@ -310,24 +409,25 @@ const Profile = () => {
                       )}
                     </div>
                   ))}
-                </div>
               </div>
-            )}
-            {educations.length > 0 && (
-              <div className="flex column gap border-radius bg-primary p ">
-                <div className="flex justify-between">
-                  <h2>Education:</h2>
-                  {signedinUser && (
-                    <p
-                      className="text-gray large-font edit-img"
-                      onClick={() => setOpenEditEducation(true)}
-                    >
-                      +
-                    </p>
-                  )}
-                </div>
-                <div className="flex column gap">
-                  {educations.map((ex, i) => (
+            </div>
+
+            <div className="flex column gap border-radius bg-primary p ">
+              <div className="flex justify-between">
+                <h2>Education:</h2>
+                {signedinUser && (
+                  <p
+                    className="text-gray large-font edit-img"
+                    onClick={() => setOpenEditEducation(true)}
+                  >
+                    +
+                  </p>
+                )}
+              </div>
+              <div className="flex column gap">
+                {educations &&
+                  educations.length > 0 &&
+                  educations.map((ex, i) => (
                     <div className="flex justify-between">
                       <div className="flex column small-gap w-full" key={i}>
                         <h3>{ex.major}</h3>
@@ -347,26 +447,26 @@ const Profile = () => {
                       )}
                     </div>
                   ))}
-                </div>
               </div>
-            )}
+            </div>
           </div>
         ) : (
-          jobs.length > 0 && (
-            <div className="flex column gap border-radius bg-primary p ">
-              <div className="flex justify-between">
-                <h2>Posted jobs:</h2>
-                {signedinUser && (
-                  <p
-                    className="text-gray large-font edit-img"
-                    onClick={() => setOpenEditJob(true)}
-                  >
-                    +
-                  </p>
-                )}
-              </div>
-              <div className="flex column gap">
-                {jobs.map((job, i) => (
+          <div className="flex column gap border-radius bg-primary p ">
+            <div className="flex justify-between">
+              <h2>Posted jobs:</h2>
+              {signedinUser && (
+                <p
+                  className="text-gray large-font edit-img"
+                  onClick={() => setOpenEditJob(true)}
+                >
+                  +
+                </p>
+              )}
+            </div>
+            <div className="flex column gap">
+              {jobs &&
+                jobs.length > 0 &&
+                jobs.map((job, i) => (
                   <div className="flex justify-between">
                     <Job job={job} key={i} />
                     {signedinUser && (
@@ -379,11 +479,11 @@ const Profile = () => {
                     )}
                   </div>
                 ))}
-              </div>
             </div>
-          )
+          </div>
         )}
-        {posts.length > 0 &&
+        {posts &&
+          posts.length > 0 &&
           posts.map((post, i) => (
             <div className="posts-container">
               <Post post={post} key={i} />
@@ -424,6 +524,13 @@ const Profile = () => {
           setOpen={setOpenEditEducation}
           user={user}
           fetchEducations={fetchEducations}
+        />
+      )}
+      {openEditJob && (
+        <AddJobPopup
+          setOpen={setOpenEditJob}
+          user={user}
+          fetchJobs={fetchJobs}
         />
       )}
     </>
